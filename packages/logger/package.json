@@ -8,7 +8,7 @@
   "author": "",
   "scripts": {
     "build": "tsc",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "lint": "eslint ."
   },
   "license": "MIT",
