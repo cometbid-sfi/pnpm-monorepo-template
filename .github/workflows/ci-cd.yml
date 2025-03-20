@@ -7,8 +7,8 @@ on:
     branches: [dev, uat, staging, preprod, main]
 
 env:
-  NODE_VERSION: '20'
-  PNPM_VERSION: '10'
+  NODE_VERSION: '20.x'
+  PNPM_VERSION: '10.x'
 
 #NETLIFY_AUTH_TOKEN=nfp_UpqYfGVRBuut3bWsAyM5GC7b74QoumuW8f27
 #NETLIFY_SITE_ID=fc3d2a93-215f-4cbb-9300-6153df63fd44
