@@ -1,35 +1,70 @@
 // @ts-check
-import eslint from '@eslint/js';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
+import eslint from "@eslint/js";
+import * as prettierPlugin from "eslint-plugin-prettier";
+import prettierConfig from "eslint-config-prettier";
+import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
+import globals from "globals";
+import * as parser from "@typescript-eslint/parser";
+import tsPlugin from "@typescript-eslint/eslint-plugin";
 
-export default tseslint.config(
+// Destructure the plugin from prettierPlugin
+const { default: prettier } = prettierPlugin;
+
+export default [
   {
-    ignores: ['eslint.config.mjs'],
+    ignores: ["eslint.config.mjs", "dist/**", "node_modules/**"]
   },
-  eslint.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
-  eslintPluginPrettierRecommended,
   {
+    files: ["**/*.ts", "**/*.tsx"],
+    plugins: {
+      "@typescript-eslint": tsPlugin,
+      prettier
+    },
     languageOptions: {
-      globals: {
-        ...globals.node,
-        ...globals.jest,
-      },
-      ecmaVersion: 5,
-      sourceType: 'module',
+      parser: parser.default,
       parserOptions: {
-        projectService: true,
+        project: "./tsconfig.json",
         tsconfigRootDir: import.meta.dirname,
       },
+      globals: {
+        ...globals.node,
+        ...globals.jest
+      }
     },
+    rules: {
+      ...tsPlugin.configs.recommended.rules,
+      ...prettierConfig.rules,
+      "prettier/prettier": ["error", {
+        "singleQuote": true,
+        "trailingComma": "all",
+        "printWidth": 100,
+        "tabWidth": 2,
+        "semi": true
+      }],
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-floating-promises": "off",
+      "@typescript-eslint/no-unsafe-argument": "warn",
+      "@typescript-eslint/interface-name-prefix": "off",
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/explicit-module-boundary-types": "off",
+      "@typescript-eslint/no-unsafe-assignment": "error"
+    }
   },
   {
-    rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-floating-promises': 'warn',
-      '@typescript-eslint/no-unsafe-argument': 'warn'
+    files: ["**/*.js", "**/*.mjs"],
+    ...eslint.configs.recommended,
+    plugins: {
+      prettier
     },
-  },
-);
+    rules: {
+      ...prettierConfig.rules,
+      "prettier/prettier": ["error", {
+        "singleQuote": true,
+        "trailingComma": "all",
+        "printWidth": 100,
+        "tabWidth": 2,
+        "semi": true
+      }]
+    }
+  }
+];
