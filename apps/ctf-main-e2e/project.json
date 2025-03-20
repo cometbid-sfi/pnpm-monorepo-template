@@ -1,0 +1,10 @@
+{
+  "name": "ctf-main-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/ctf-main-e2e/src",
+  "tags": [],
+  "implicitDependencies": ["ctf-main"],
+  "// targets": "to see all targets run: nx show project ctf-main-e2e --web",
+  "targets": {}
+}

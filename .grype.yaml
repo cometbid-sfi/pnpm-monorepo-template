@@ -1,0 +1,13 @@
+ignore:
+  # Add any vulnerabilities you want to ignore
+  # Example:
+  # - vulnerability: CVE-2023-1234
+
+search:
+  scope: squashed
+
+fail-on:
+  - high
+  - critical
+
+output: table
