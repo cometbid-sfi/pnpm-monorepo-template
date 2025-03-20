@@ -1,3 +1,4 @@
 export async function GET(request: Request) {
-  return new Response('Hello, from API!');
+  const req = request;
+  return new Response('Hello, from API!' + req.body);
 }

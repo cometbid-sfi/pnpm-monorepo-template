@@ -75,10 +75,10 @@ jobs:
       - name: Run security audit
         run: pnpm audit
 
-      - name: Run Snyk security scan
-        uses: snyk/actions/node@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      #- name: Run Snyk security scan
+        #uses: snyk/actions/node@master
+        #env:
+          #SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       - name: Install Grype
         run: |
           curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin

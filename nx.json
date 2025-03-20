@@ -95,5 +95,24 @@
         "linter": "eslint"
       }
     }
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "parallel": 3,
+        "daemon": true,
+        "runtimeCacheInputs": ["node -v"],
+        "cache": true,
+        "useDaemonProcess": true,
+        "daemonMaxAge": 7200000
+      }
+    }
+  },
+  "extends": "@nx/workspace/presets/npm.json",
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*"],
+    "production": ["!{projectRoot}/**/*.spec.ts"]
   }
 }
