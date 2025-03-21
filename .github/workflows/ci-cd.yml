@@ -104,12 +104,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       
-      - name: Build affected
-        run: pnpm nx affected --target=build --parallel=3
+      - name: Build
+        run: pnpm build-all
 
-      - name: Test affected
-        run: pnpm nx affected --target=test --parallel=3
-        
       - name: Run tests
         run: pnpm test-all
 
