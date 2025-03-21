@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "apps/*"
+    ]
+  },
   "scripts": {
     "start:ui": "pnpm --filter ui dev",
     "start:api": "pnpm --filter api start:dev",
