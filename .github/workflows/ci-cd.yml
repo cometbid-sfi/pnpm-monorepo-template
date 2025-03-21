@@ -142,21 +142,43 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
           run_install: false
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
+      
+          # Restore Cypress binary cache
+      - name: Cache Cypress binary
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-binary-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            cypress-binary-
+
       - name: Install dependencies
         run: pnpm install
+
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
           name: build-output
+
+      # Install Cypress binary if needed
+      - name: Install Cypress binary
+        run: npx cypress install
+
       - name: Run E2E tests
         run: pnpm test:e2e
+        env:
+          # Pass any needed environment variables
+          CYPRESS_CACHE_FOLDER: ~/.cache/Cypress
 
   deploy:
     needs: [e2e-test]
