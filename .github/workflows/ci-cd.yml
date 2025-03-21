@@ -3,8 +3,26 @@ name: CI/CD Pipeline
 on:
   push:
     branches: [dev, uat, staging, preprod, main]
+    paths:
+      - 'apps/**'
+      - 'libs/**'
+      - 'packages/**'
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.test.ts'
+      - '**/*.spec.ts'
+      - 'apps/**/tests/**'
   pull_request:
     branches: [dev, uat, staging, preprod, main]
+    paths:
+      - 'apps/**'
+      - 'libs/**'
+      - 'packages/**'
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.test.ts'
+      - '**/*.spec.ts'
+      - 'apps/**/tests/**'
 
 env:
   NODE_VERSION: '20.x'
@@ -183,6 +201,10 @@ jobs:
   deploy:
     needs: [e2e-test]
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app: ['ctf-dashboard', 'ctf-main']  # List your apps that need deployment
+
     steps:
       - uses: actions/checkout@v4
 
@@ -232,15 +254,27 @@ jobs:
           else
             PROD_FLAG=""
           fi
+          
+          # Get the correct site ID and build directory based on the app
+          case ${{ matrix.app }} in
+            "ctf-dashboard")
+              SITE_ID=${{ secrets.NETLIFY_DASHBOARD_SITE_ID }}
+              BUILD_DIR="apps/ctf-dashboard/dist"
+              ;;
+            "ctf-main")
+              SITE_ID=${{ secrets.NETLIFY_MAIN_SITE_ID }}
+              BUILD_DIR="apps/ctf-main/dist"
+              ;;
+          esac
 
           netlify deploy \
             --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} \
-            --site ${{ secrets.NETLIFY_SITE_ID }} \
-            --dir ./dist \
+            --site ${SITE_ID} \
+            --dir ${BUILD_DIR} \
             $PROD_FLAG
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          #NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
