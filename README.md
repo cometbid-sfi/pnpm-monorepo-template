@@ -4,7 +4,7 @@
 
 ✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/next?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!  
+[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/next?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
 
 ### Setting Up a Monorepo with pnpm
 
@@ -205,23 +205,22 @@ pnpm start
 
 This ensures that build and test commands are executed for all projects within the monorepo.
 
-
-**Build individual Projects:** 
+**Build individual Projects:**
 
 ```sh
 pnpx nx build api
 pnpx nx build ui
 ```
 
-**Run build command on all apps:** 
+**Run build command on all apps:**
 
-Following command run all build command on all apps at once.  
+Following command run all build command on all apps at once.
 
 ```sh
 pnpx nx run-many -t=build
 ```
 
-**Using Nx with pnpm:** 
+**Using Nx with pnpm:**
 
 Nx provides a rich CLI and graphical interface for managing your projects. You can run build, test, and lint commands for specific projects.
 
@@ -239,8 +238,7 @@ pnpx nx run-many --targets=lint,test,build
 
 Nx enhances the monorepo experience by providing advanced tooling for building, testing, and deploying applications. When combined with pnpm, it offers efficient dependency management and powerful workspace capabilities.
 
-
-**Add Nx to Your Workspace:** 
+**Add Nx to Your Workspace:**
 
 Initialize the Nx workspace in your project
 
@@ -290,7 +288,7 @@ pnpm nx g @nx/next:app your-app-name
 pnpm approve-builds
 ```
 
-If you're still experiencing issues, try these additional troubleshooting steps:  
+If you're still experiencing issues, try these additional troubleshooting steps:
 
 i. Clear the Nx cache:
 
@@ -335,8 +333,6 @@ iii. If you have a nx.json file, ensure it's properly configured:
 Relevant Blogs:
 
 - [Monorepo using pnpm workspaces](https://fazalerabbi.medium.com/monorepo-using-pnpm-workspaces-cb23ed332127)
-
-
 
 ## Add new Nextjs projects
 
@@ -396,7 +392,6 @@ These targets are either [inferred automatically](https://nx.dev/concepts/inferr
 
 [More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 
-
 ## Remove Nextjs project
 
 1. First, to remove the existing Next.js project, you can use the nx remove command:
@@ -455,7 +450,6 @@ export default function Home() {
 ```
 
 That's it, you are all set to use bootstrap in your Next.js application
-
 
 ## Add Tailwind CSS to Nextjs Project
 
@@ -588,13 +582,11 @@ Show the dependency graph of our application.
 
 [Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 
-
 ## Install Nx Console
 
 Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
 
 [Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
 
 ## Useful links
 
