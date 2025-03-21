@@ -35,12 +35,14 @@ export default [
       ...tsPlugin.configs.recommended.rules,
       ...prettierConfig.rules,
       "prettier/prettier": ["error", {
-        "singleQuote": true,
+        "singleQuote": false,
         "trailingComma": "all",
         "printWidth": 100,
         "tabWidth": 2,
         "semi": true
       }],
+      "prefer-arrow-callback": "error",
+      "prefer-template": "error",
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-floating-promises": "off",
       "@typescript-eslint/no-unsafe-argument": "warn",
@@ -59,12 +61,14 @@ export default [
     rules: {
       ...prettierConfig.rules,
       "prettier/prettier": ["error", {
-        "singleQuote": true,
+        "singleQuote": false,
         "trailingComma": "all",
         "printWidth": 100,
         "tabWidth": 2,
         "semi": true
-      }]
+      }],
+      "prefer-arrow-callback": "error",
+      "prefer-template": "error",
     }
   }
 ];

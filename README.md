@@ -4,7 +4,249 @@
 
 ✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/next?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/next?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!  
+
+### Setting Up a Monorepo with pnpm
+
+**Install pnpm:**  
+Start by Installing pnpm globally if you haven't already:
+
+```sh
+npm install -g pnpm
+```
+
+**Initialize a Workspace:**
+
+Create a new directory for your monorepo and initialize a pnpm workspace:
+
+```sh
+mkdir pnpm-monorepo-template
+cd pnpm-monorepo-template
+pnpm init
+```
+
+**Configure the Workspace:**
+
+Create a pnpm-workspace.yaml file in the root of your monorepo to define the packages in the workspace:
+
+```yaml
+packages:
+  - "packages/*"
+  - "apps/*"
+  - "libs/*"
+```
+
+**Create Applications:**
+
+Create apps for react and nest apps. And packages for re-useable libraries:
+
+```sh
+mkdir apps
+mkdir packages
+```
+
+**Initialize the React Application:**
+
+To create the react app using vite run following command from root of monorepo.
+
+```sh
+pnpm create vite apps/ui
+```
+
+**Initialize the Nest Application:**
+
+To create the nestjs app using nestjs/cli run following command from root of monorepo.
+
+```sh
+pnpx @nestjs/cli new apps/api
+```
+
+**Run the react(UI) app:**
+
+```sh
+pnpm --filter ui dev
+```
+
+**Run the nestjs(api) app:**
+
+```sh
+pnpm --filter api start:dev
+```
+
+**Scripts and Automation:**
+
+Update the package.json file on root. Add some scripts in package.json to start both apps with single command:
+
+```json
+"scripts": {
+  "start:ui": "pnpm --filter ui dev",
+  "start:api": "pnpm --filter api start:dev",
+  "start": "pnpm run start:ui & pnpm run start:api",
+  "build": "pnpm recursive run build",
+  "test": "pnpm recursive run test"
+}
+```
+
+```sh
+pnpm start:ui // It will run UI app
+pnpm start:api // It will run API app
+pnpm start // It will run both apps
+pnpm test // it will test on all workspaces
+```
+
+Explanation of pnpm commands:
+
+**— filter:** It will filter the app you want to run in out case ui and api are two apps.
+
+**— ui/api:** Name of the app
+
+**— dev/start:dev:** Script in package.json of app. dev is script command in scripts object in ui app. and start:dev is the script command in api app.
+
+**— recursive:** It will run the specifies command like build and test on all workspaces. If some workspace doesn’t have test script, it will ignore it.
+
+**Create a Shared Logger Package:**
+
+Create a new folder for your shared logger package inside the packages folder:
+
+```sh
+mkdir -p packages/logger
+cd packages/logger
+pnpm init
+```
+
+**Implement the Logger Package:**
+
+Add a simple logger implementation in packages/logger/src/index.ts:
+
+```javascript
+export const Logger = (message: string) => {
+    console.log(`${'Logger - ' + new Date().toISOString() + ': ' + message}`)
+}
+
+export default Logger;
+```
+
+**Add dependencies:**
+
+Add the dependencies for logger, in our case it’s only typescript. Run the following command on root of project.
+
+```sh
+pnpm add --filter logger typescript
+```
+
+**Update package.json:** package.json file of logger should look like:
+
+```json
+{
+  "name": "@pnpmworkspace/logger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "typescript": "^5.5.3"
+  }
+}
+```
+
+**tsconfig.json:**
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "allowJs": true,
+    "declaration": true,
+    "outDir": "./dist",
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src"]
+}
+```
+
+**Build Logger package (Run from root):**
+
+```sh
+pnpm --filter logger build
+```
+
+**Add Logger as dependency(Run from root):**
+
+```sh
+pnpm add ./packages/logger --workspace-root
+```
+
+Above command will add the package logger into root node_module folder.
+
+**— workspace-root:** It will add package in root node_module folder.
+
+**Use Logger Package:** You can use @pnpmworkspace/logger into both ui and api apps.
+
+```javascript
+import { Logger } from "@pnpmworkspace/logger";
+```
+
+**Run both apps:**
+
+```sh
+pnpm start
+```
+
+This ensures that build and test commands are executed for all projects within the monorepo.
+
+
+**Build individual Projects:** 
+
+```sh
+pnpx nx build api
+pnpx nx build ui
+```
+
+**Run build command on all apps:** 
+
+Following command run all build command on all apps at once.  
+
+```sh
+pnpx nx run-many -t=build
+```
+
+**Using Nx with pnpm:** 
+
+Nx provides a rich CLI and graphical interface for managing your projects. You can run build, test, and lint commands for specific projects.
+
+```sh
+pnpx nx run-many --targets=lint,test,build --projects=api
+```
+
+Or for all projects.
+
+```sh
+pnpx nx run-many --targets=lint,test,build
+```
+
+## How to Setup Nx in a pnpm Workspace
+
+Nx enhances the monorepo experience by providing advanced tooling for building, testing, and deploying applications. When combined with pnpm, it offers efficient dependency management and powerful workspace capabilities.
+
+
+**Add Nx to Your Workspace:** 
+
+Initialize the Nx workspace in your project
+
+```sh
+pnpx nx@latest init
+```
 
 ### Add @nx/next:app to a pnpm monorepo
 
@@ -48,7 +290,7 @@ pnpm nx g @nx/next:app your-app-name
 pnpm approve-builds
 ```
 
-If you're still experiencing issues, try these additional troubleshooting steps:
+If you're still experiencing issues, try these additional troubleshooting steps:  
 
 i. Clear the Nx cache:
 
@@ -89,6 +331,12 @@ iii. If you have a nx.json file, ensure it's properly configured:
   }
 }
 ```
+
+Relevant Blogs:
+
+- [Monorepo using pnpm workspaces](https://fazalerabbi.medium.com/monorepo-using-pnpm-workspaces-cb23ed332127)
+
+
 
 ## Add new Nextjs projects
 
@@ -148,6 +396,7 @@ These targets are either [inferred automatically](https://nx.dev/concepts/inferr
 
 [More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 
+
 ## Remove Nextjs project
 
 1. First, to remove the existing Next.js project, you can use the nx remove command:
@@ -206,6 +455,7 @@ export default function Home() {
 ```
 
 That's it, you are all set to use bootstrap in your Next.js application
+
 
 ## Add Tailwind CSS to Nextjs Project
 
@@ -338,11 +588,13 @@ Show the dependency graph of our application.
 
 [Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 
+
 ## Install Nx Console
 
 Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
 
 [Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+
 
 ## Useful links
 

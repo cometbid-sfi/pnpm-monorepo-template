@@ -1,4 +1,4 @@
-import styles from './page.module.css';
+import styles from "./page.module.css";
 //import { Button, Col, Container, Row } from 'react-bootstrap';
 
 export default function Index() {
@@ -318,8 +318,8 @@ export default function Index() {
                 <p>You can activate distributed tasks executions and caching by running:</p>
                 <pre>nx connect</pre>
                 <a href="https://nx.app/?utm_source=nx-project" target="_blank" rel="noreferrer">
-                  {' '}
-                  What is Nx Cloud?{' '}
+                  {" "}
+                  What is Nx Cloud?{" "}
                 </a>
               </div>
               <a

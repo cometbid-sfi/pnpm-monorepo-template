@@ -1,6 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
-import { logger } from '@pnpmworkspace/logger';
+import { Controller, Get } from "@nestjs/common";
+import { AppService } from "./app.service";
+import { logger } from "@pnpmworkspace/logger";
 
 @Controller()
 export class AppController {
@@ -8,7 +8,7 @@ export class AppController {
 
   @Get()
   getHello(): string {
-    logger.log('Hello World!');
+    logger.log("Hello World!");
     return this.appService.getHello();
   }
 }

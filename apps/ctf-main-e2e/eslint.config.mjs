@@ -6,6 +6,21 @@ export default [
   ...baseConfig,
   {
     // Override or add rules here
-    rules: {},
+    rules: {
+      ...eslint.configs.recommended.rules,
+      ...prettierConfig.rules,
+      "prettier/prettier": [
+        "error",
+        {
+          singleQuote: false,
+          trailingComma: "all",
+          printWidth: 100,
+          tabWidth: 2,
+          semi: true,
+        },
+      ],
+      "prefer-arrow-callback": "error",
+      "prefer-template": "error",
+    },
   },
 ];
