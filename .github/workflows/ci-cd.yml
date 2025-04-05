@@ -7,22 +7,22 @@ on:
       - 'apps/**'
       - 'libs/**'
       - 'packages/**'
-    paths-ignore:
-      - '**/*.md'
-      - '**/*.test.ts'
-      - '**/*.spec.ts'
-      - 'apps/**/tests/**'
+    #paths-ignore:
+      #- '**/*.md'
+      #- '**/*.test.ts'
+      #- '**/*.spec.ts'
+      #- 'apps/**/tests/**'
   pull_request:
     branches: [dev, uat, staging, preprod, main]
     paths:
       - 'apps/**'
       - 'libs/**'
       - 'packages/**'
-    paths-ignore:
-      - '**/*.md'
-      - '**/*.test.ts'
-      - '**/*.spec.ts'
-      - 'apps/**/tests/**'
+    #paths-ignore:
+      #- '**/*.md'
+      #- '**/*.test.ts'
+      #- '**/*.spec.ts'
+      #- 'apps/**/tests/**'
 
 env:
   NODE_VERSION: '20.x'

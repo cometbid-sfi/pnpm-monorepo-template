@@ -559,6 +559,13 @@ Updates the packages in package.json to the latest version.
 pnpx nx affected
 ```
 
+**To upgrade libraries to the latest versions, run:**
+
+```bash
+pnpm update --latest
+
+```
+
 Performs the action on only the affected or modified apps.
 
 ```sh
@@ -576,6 +583,20 @@ Runs the target command across all projects listed.
 
 ```sh
 pnpx nx dep-graph
+```
+
+**Using LightHouse for Performance Monitoring**
+
+- Install Lighthouse CLI
+
+```bash
+pnpm i -g lighthouse
+```
+
+- Run Lighthouse audit on your Nextjs application
+
+```bash
+lighthouse http://cometbid.org/
 ```
 
 Show the dependency graph of our application.
