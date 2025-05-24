@@ -48,8 +48,8 @@ jobs:
         run: |
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
-      - uses: actions/cache@v4
-        name: Setup pnpm cache
+      - name: Setup pnpm cache
+        uses: actions/cache@v4 
         with:
           path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -203,7 +203,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        app: ['ctf-dashboard', 'ctf-main']  # List your apps that need deployment
+        app: ['tctf-dashboard', 'tctf-main']  # List your apps that need deployment
 
     steps:
       - uses: actions/checkout@v4
@@ -257,13 +257,13 @@ jobs:
           
           # Get the correct site ID and build directory based on the app
           case ${{ matrix.app }} in
-            "ctf-dashboard")
+            "tctf-dashboard")
               SITE_ID=${{ secrets.NETLIFY_DASHBOARD_SITE_ID }}
-              BUILD_DIR="apps/ctf-dashboard/dist"
+              BUILD_DIR="apps/tctf-dashboard/dist"
               ;;
-            "ctf-main")
+            "tctf-main")
               SITE_ID=${{ secrets.NETLIFY_MAIN_SITE_ID }}
-              BUILD_DIR="apps/ctf-main/dist"
+              BUILD_DIR="apps/tctf-main/dist"
               ;;
           esac
 

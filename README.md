@@ -1,4 +1,4 @@
-## Cometbid Technology Foundation Portal Frontend
+## The Cometbid Technology Foundation(TCTF) Portal Frontend
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
@@ -61,16 +61,33 @@ To create the nestjs app using nestjs/cli run following command from root of mon
 pnpx @nestjs/cli new apps/api
 ```
 
+**Build the Dependencies**
+```sh
+pnpm --filter @pnpmworkspace/logger build
+```
+
 **Run the react(UI) app:**
 
+Make sure to build dependencies first, or you will into an error:
+
 ```sh
-pnpm --filter ui dev
+pnpx nx build ui 
+or
+pnpm --filter ui build
+
+pnpm --filter ui start:dev
+pnpm --filter ui start:prod
 ```
 
 **Run the nestjs(api) app:**
 
 ```sh
+pnpx nx build api 
+or
+pnpm --filter api build
+
 pnpm --filter api start:dev
+pnpm --filter api start:prod
 ```
 
 **Scripts and Automation:**
@@ -370,22 +387,22 @@ After creation, you can verify the project setup by running the task.
 To run the dev server for your app, use:
 
 ```sh
-pnpx nx dev ctf-dashboard
-pnpx nx dev ctf-main
+pnpx nx dev tctf-member-dashboard
+pnpx nx dev tctf-main-portal
 ```
 
 To create a production bundle:
 
 ```sh
-pnpx nx build ctf-dashboard
-pnpx nx build ctf-main
+pnpx nx build tctf-member-dashboard
+pnpx nx build tctf-main-portal
 ```
 
 To see all available targets to run for a project, run:
 
 ```sh
-pnpx nx show project ctf-dashboard
-pnpx nx show project ctf-main
+pnpx nx show project tctf-member-dashboard
+pnpx nx show project tctf-main-portal
 ```
 
 These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
