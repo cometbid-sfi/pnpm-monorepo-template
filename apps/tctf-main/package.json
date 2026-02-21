@@ -12,7 +12,7 @@
     "lint-fix": "ESLINT_USE_FLAT_CONFIG=true eslint . --fix"
   },
   "dependencies": {
-    "next": "15.2.4",
+    "next": "15.5.10",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
